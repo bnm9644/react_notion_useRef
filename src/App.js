@@ -2,32 +2,25 @@ import React, {useEffect, useRef, useState} from 'react';
 
 import './App.css';
 
-function App() {
+function App() {  
 
-  const [count, setCount] = useState(1);
-  const renderCount = useRef(1);
+  const inputRef = useRef();
 
-  //ref 는 리 렌더링을 발생시키지 않음. 무한루프 방지! - 
-  useEffect (() => {
-    renderCount.current = renderCount.current + 1;
-    console.log('렌더링 수 :', renderCount.current);
-  });
+  // 처음 렌더링 될때만 실행
+  useEffect( () => {
+    //console.log(inputRef);
+    inputRef.current.focus();
+  },[]); 
 
-  // 무한 루프 걸림 count 버튼 누르면 렌더링을 한다. 그러나 밑에 또 set 함수를 줘 렌더링을 함.  
-  
-  /* 
-    1) -> 2) -> 3) 순으로 반복, useEffect 로 최초 렌더, 1) 실행, 2) setCount로 렌더, 3) useEffect 시켜 또 렌더...
-    3) 
-    useEffect (()=> {  
-      console.log('렌더링'); -> 1) 
-      setCount(count +1); -> 2) 
-     });
-  */ 
+  const login = () => {
+    alert(`환영합니다 : ${inputRef.current.value}`);
+    inputRef.current.focus();
+  };
 
   return (
     <div>
-      <p>count : {count}</p>
-      <button onClick ={() => setCount(count+1)}>count Up!</button>
+      <input ref={inputRef} type="text" placeholder='username'></input>
+      <button onClick= {login}>로그인</button>
     </div>
   )
 };
@@ -152,4 +145,23 @@ export default App;
   2) DOM 요소 접근 - Document.querySelector 의 기능
      const ref = useRef(value);  ->   <input ref = {ref}/>
 
-*/
+     const inputRef = useRef();
+                
+    // 처음 렌더링 될때만 실행
+    useEffect( () => {
+      //console.log(inputRef);
+      inputRef.current.focus();
+    },[]); 
+  
+    const login = () => {
+      alert(`환영합니다 : ${inputRef.current.value}`);
+      inputRef.current.focus();
+    };
+  
+    return (
+      <div>
+        <input ref={inputRef} type="text" placeholder='username'></input>
+        <button onClick= {login}>로그인</button>
+      </div>
+    )
+*/  
